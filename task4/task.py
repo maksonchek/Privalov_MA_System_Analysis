@@ -70,7 +70,7 @@ def inf_gain(entr_x, h_x_y):
     return entr_x - h_x_y
 
 
-def execute():
+def main():
     df = generate_data()
     pdf = pxy(df)
     hxay = hxy(pdf)
@@ -79,7 +79,7 @@ def execute():
     px_y_df = px_y(pdf)
     h_x_y = hx_y(pdf, px_y_df)
     inf = inf_gain(entr_x, h_x_y)
-    return [hxay, entr_y, entr_x, h_x_y, inf]
+    return [round(hxay,2), round(entr_y,2), round(entr_x,2), round(h_x_y,2), round(inf,2)]
 
 
-print(execute())
+# print(main())

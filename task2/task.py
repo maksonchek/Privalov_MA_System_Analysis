@@ -95,7 +95,23 @@ def r5(val, tree, ans):
                     cnt += 1
     ans.loc[val, 'r5'] = cnt
 
-def main(t):
+def main():
+    t = {
+        "1": {
+            "2": {
+                "3": {
+                    "5": {},
+                    "6": {}
+                },
+                "4": {
+                    "7": {},
+                    "8": {}
+
+                }
+            }
+        }
+    }
+
     tree = dict_2_df(t)
     tree['in'] = tree['in'].astype(int)
     tree['out'] = tree['out'].astype(int)
@@ -111,5 +127,5 @@ def main(t):
     
     return ans
 
-output = main(t)
-print(output)
+# output = main(t)
+# print(output)

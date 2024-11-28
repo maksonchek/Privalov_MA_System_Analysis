@@ -51,28 +51,31 @@ def get_kernels_contr(ans):
     return kernels
 
 def main():
-    with open('Ранжировка  A.json', 'r') as file:
-        a = json.load(file)
+    # with open('Ранжировка  A.json', 'r') as file:
+    a = [1,[2,3],4,[5,6,7],8,9,10]
 
-    with open('Ранжировка  B.json', 'r') as file:
-        b = json.load(file)
+   # with open('Ранжировка  B.json', 'r') as file:
+    b = [[1,2],[3,4,5],6,7,9,[8,10]]
 
-    with open('Согласованная кластерная ранжировка AB.json', 'r') as file:
-        ab = json.load(file)
+    #with open('Согласованная кластерная ранжировка AB.json', 'r') as file:
+    ab = [3,[1,4],2,6,[5,7,8],[9,10]]
 
-    with open('Ядро противоречий AB.json', 'r') as file:
-        pab = json.load(file)
+    #with open('Ядро противоречий AB.json', 'r') as file:
+    pab = [[8,9]]
 
     a_mat = create_pair_matrix(a)
     b_mat = create_pair_matrix(b)
     ab_mat = np.multiply(a_mat, b_mat)
     ans = find_contr(ab_mat)
     kernel = get_kernels_contr(ans)
-    print()
-    print(f"Согласованная кластерная ранжировка {ans}")
-    print(f"Ядро противоречий {kernel}")
-    assert ans == ab, "Согласованная ранжировка неверная"
-    assert kernel == pab, "Ядро противоречий неверное"
+    kernel_json = json.dumps(kernel)
+    # print(kernel_json)
+    return kernel_json
+    # print()
+    # print(f"Согласованная кластерная ранжировка {ans}")
+    # print(f"Ядро противоречий {kernel}")
+    # assert ans == ab, "Согласованная ранжировка неверная"
+    # assert kernel == pab, "Ядро противоречий неверное"
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
