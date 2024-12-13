@@ -127,5 +127,5 @@ def main():
     
     return ans
 
-# output = main(t)
-# print(output)
+output = main()
+print(output)

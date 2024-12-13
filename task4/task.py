@@ -82,4 +82,4 @@ def main():
     return [round(hxay,2), round(entr_y,2), round(entr_x,2), round(h_x_y,2), round(inf,2)]
 
 
-# print(main())
+print(main())

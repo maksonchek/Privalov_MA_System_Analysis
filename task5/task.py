@@ -77,5 +77,5 @@ def main():
     # assert ans == ab, "Согласованная ранжировка неверная"
     # assert kernel == pab, "Ядро противоречий неверное"
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
