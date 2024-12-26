@@ -78,4 +78,5 @@ def main():
     # assert kernel == pab, "Ядро противоречий неверное"
 
 if __name__ == '__main__':
-    main()
+    kernel = main()
+    print(kernel)
