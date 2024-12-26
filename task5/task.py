@@ -1,6 +1,6 @@
-import pandas as pd
-import json 
+import json
 import numpy as np
+import pandas as pd
 
 def create_pair_matrix(mas):
     elems = []
@@ -23,32 +23,17 @@ def create_pair_matrix(mas):
                 mat.loc[mel, elems[ids[mel]:]] = 1
                 mat.loc[mel, el] = 1
     
-    return mat
+    return np.array(mat)
 
-def find_contr(ab_mat):
-    ans = []
-    for i, el in enumerate(ab_mat.columns):
-        if ab_mat[el].sum() == el:
-            ans.append(el)
-        else:
-            prot = []
-            prot.append(el)
-            for si, s in enumerate(ab_mat[el]):
-                sid = si + 1
-                if sid < el:
-                    if s == 0:
-                        prot.append(sid)
-                        if sid in ans:
-                            ans.remove(sid)
-            ans.append(sorted(prot))
-    return ans
 
-def get_kernels_contr(ans):
-    kernels = []
-    for el in ans:
-        if type(el) == list:
-            kernels.append(el)
-    return kernels
+def get_kernels_contr(matrix_a, matrix_b):
+    matrix_a, matrix_b = np.array(matrix_a), np.array(matrix_b)
+    combined_matrix = matrix_a * matrix_b
+    combined_transpose = matrix_a.T * matrix_b.T
+    result_matrix = np.logical_or(combined_matrix, combined_transpose)
+    return result_matrix
+    #print(result_matrix)
+
 
 def main():
     # with open('Ранжировка  A.json', 'r') as file:
@@ -56,6 +41,7 @@ def main():
 
    # with open('Ранжировка  B.json', 'r') as file:
     b = [[1,2],[3,4,5],6,7,9,[8,10]]
+    #b = [1,[2,3],4,[5,6,7],8,9,10]
 
     #with open('Согласованная кластерная ранжировка AB.json', 'r') as file:
     ab = [3,[1,4],2,6,[5,7,8],[9,10]]
@@ -66,16 +52,16 @@ def main():
     a_mat = create_pair_matrix(a)
     b_mat = create_pair_matrix(b)
     ab_mat = np.multiply(a_mat, b_mat)
-    ans = find_contr(ab_mat)
-    kernel = get_kernels_contr(ans)
-    kernel_json = json.dumps(kernel)
-    # print(kernel_json)
-    return kernel_json
-    # print()
-    # print(f"Согласованная кластерная ранжировка {ans}")
-    # print(f"Ядро противоречий {kernel}")
-    # assert ans == ab, "Согласованная ранжировка неверная"
-    # assert kernel == pab, "Ядро противоречий неверное"
+    ans = get_kernels_contr(a_mat, b_mat)
+    for r in range(len(ans)):
+        for c in range(len(ans[r])):
+            if ans[r,c] == 0:
+                print(f"{r+1}, {c+1}")
+
+    # kernel = get_kernels_contr(ans)
+    # kernel_json = json.dumps(kernel)
+    # # print(kernel_json)
+    return ans
 
 if __name__ == '__main__':
     kernel = main()
